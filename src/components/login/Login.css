@@ -1,0 +1,25 @@
+.paper {
+  height: fit-content;
+  width: fit-content;
+  text-align: center;
+}
+
+.loginText {
+  width: 300px;
+}
+
+.fio {
+  width: 300px;
+  margin-left: 21%;
+}
+
+.fioLabel {
+  margin-left: 21%;
+  color: gray;
+  font-family: 'Roboto';
+  font-size: 12px;
+}
+
+.fioBox {
+  text-align: left;
+}
