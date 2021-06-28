@@ -16,10 +16,16 @@
 .fioLabel {
   margin-left: 21%;
   color: gray;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: 12px;
 }
 
 .fioBox {
   text-align: left;
+}
+
+.errorMsg {
+  color: red;
+  text-align: center;
+  font-size: 10px;
 }

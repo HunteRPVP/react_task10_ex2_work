@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Button, TextField } from "@material-ui/core";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import ReactDaDataBox from "react-dadata-box";
+import { useState } from "react";
 
 const schema = yup.object().shape({
   phoneNumber: yup
@@ -21,6 +22,11 @@ const schema = yup.object().shape({
 });
 
 const Signup = (props) => {
+  const fioRef = useRef(null);
+  const birthDateRef = useRef(null);
+
+  const [fio, setFio] = useState("");
+
   const normalizePhoneNumber = (value) => {
     if (value === "8") {
       value = "+7";
@@ -38,7 +44,13 @@ const Signup = (props) => {
   };
 
   const onSubmit = () => {
-    props.history.push("/lk/step1");
+    if (fio.split(" ").length === 3) {
+      const userData = {
+        fio: fioRef.current.state.query,
+        birthDate: birthDateRef.current.value,
+      };
+      props.history.push("/lk/step1/" + JSON.stringify(userData));
+    }
   };
 
   const {
@@ -57,12 +69,36 @@ const Signup = (props) => {
             token="9959c2a9603b4e457d5f5f5919e81dcec9da3307"
             type="fio"
             className="fio"
+            ref={fioRef}
+            onChange={(e) => setFio(e.value)}
           />
+          {/* <input
+            className="invisible"
+            name="lastname"
+            value={fio.split(" ")[0] || ""}
+            onChange={(e) => console.log(e.target.value)}
+          />
+          <input
+            className="invisible"
+            name="firstname"
+            value={fio.split(" ")[1] || ""}
+            onChange={(e) => console.log(e.target.value)}
+          />
+          <input
+            className="invisible"
+            name="fathername"
+            value={fio.split(" ")[2] || ""}
+            onChange={(e) => console.log(e.target.value)}
+          /> */}
+          {fio.split(" ").length !== 3 && (
+            <p className="errorMsg">Поле должно содержать полные ФИО</p>
+          )}
         </div>
         <TextField
           label="Дата рождения"
           defaultValue="2017-05-24"
           className="loginText"
+          inputRef={birthDateRef}
           type="date"
           InputLabelProps={{
             shrink: true,
@@ -84,7 +120,7 @@ const Signup = (props) => {
         />
         <br />
         <TextField
-        {...register("email")}
+          {...register("email")}
           label="Email"
           className="loginText"
           type="email"

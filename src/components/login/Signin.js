@@ -13,7 +13,14 @@ const schema = yup.object().shape({
       /\+7 \d{3} \d{3} \d{2} \d{2}/,
       "Не совпадает с необходимой маской +7 NNN NNN NN NN"
     ),
-  password: yup.string().required("Пароль является необходимым полем для заполнения"),
+  password: yup
+    .string()
+    .required("Пароль является необходимым полем для заполнения")
+    .min(8, "Пароль должен быть не короче 8 символов")
+    .matches(
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+      "Пароль должен содержать хотя бы одну цифру, латинскую букву и спец. символ"
+    ),
 });
 
 const Signin = (props) => {
@@ -68,6 +75,7 @@ const Signin = (props) => {
           type="password"
           name="password"
           autoComplete="current-password"
+          {...register("password")}
           error={!!errors?.password}
           helperText={errors?.password?.message}
         />

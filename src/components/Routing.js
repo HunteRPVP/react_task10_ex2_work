@@ -12,9 +12,8 @@ export class Routing extends Component {
         <Switch>
           <Route exact path="/error" component={Error} />
           <Route exact path="/login/:form" component={Login} />
-          <Route exact path="/lk/step1" component={Lk} />
-          <Route exact path="/lk/step2" component={Lk} />
-          {/* #todo <Route exact path="/lk/:step" component={Lk} /> */}
+          <Route exact path="/lk/:step" component={Lk} />
+          <Route exact path="/lk/:step/:userData" component={Lk} />
           <Redirect exact from="/" to="/login/signin" />
         </Switch>
       </Router>
