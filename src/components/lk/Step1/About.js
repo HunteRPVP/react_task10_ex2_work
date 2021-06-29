@@ -1,22 +1,9 @@
-import React, { useRef } from "react";
+import React from "react";
 import ReactDaDataBox from "react-dadata-box";
 import { Radio } from "@material-ui/core";
 
 const About = (props) => {
   const { about } = props;
-  const fioRef = useRef(null);
-
-  const handleChange = (e) => {
-    props.onAboutChange(e.target.value, "changed");
-  };
-
-  const handleFioChange = (e) => {
-    props.onAboutChange(e.value, "fio");
-  };
-
-  const handleLastnameChange = (e) => {
-    props.onAboutChange(e.value, "prevLastname");
-  };
 
   return (
     <div>
@@ -28,21 +15,20 @@ const About = (props) => {
         token="9959c2a9603b4e457d5f5f5919e81dcec9da3307"
         type="fio"
         query={about.fio}
-        ref={fioRef}
-        onChange={(e) => handleFioChange(e)}
+        onChange={(e) => props.onAboutChange(e.value, "fio")}
       />
       {about.fio.split(" ").length !== 3 && (
         <p className="errorMsg">Поле должно содержать полные ФИО</p>
       )}
       <Radio
         checked={about.changed === "true"}
-        onChange={handleChange}
+        onChange={(e) => props.onAboutChange(e.target.value, "changed")}
         value="true"
       />
       <label>Изменялась</label>
       <Radio
         checked={about.changed === "false"}
-        onChange={handleChange}
+        onChange={(e) => props.onAboutChange(e.target.value, "changed")}
         value="false"
       />
       <label>Не изменялась</label>
@@ -55,7 +41,7 @@ const About = (props) => {
             token="9959c2a9603b4e457d5f5f5919e81dcec9da3307"
             type="fio"
             query={about.prevLastname}
-            onChange={(e) => handleLastnameChange(e)}
+            onChange={(e) => props.onAboutChange(e.value, "prevLastname")}
           />
           {(about.prevLastname.length === 0 ||
             about.prevLastname.split(" ").length !== 1) && (

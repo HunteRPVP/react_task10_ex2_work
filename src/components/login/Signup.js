@@ -98,6 +98,7 @@ const Signup = (props) => {
           label="Дата рождения"
           defaultValue="2017-05-24"
           className="loginText"
+          variant="outlined"
           inputRef={birthDateRef}
           type="date"
           InputLabelProps={{
@@ -109,6 +110,7 @@ const Signup = (props) => {
           id="phoneNumber"
           label="Мобильный телефон"
           type="tel"
+          variant="outlined"
           className="loginText"
           {...register("phoneNumber")}
           name="phoneNumber"
@@ -124,6 +126,7 @@ const Signup = (props) => {
           label="Email"
           className="loginText"
           type="email"
+          variant="outlined"
           name="email"
           error={!!errors?.email}
           helperText={errors?.email?.message}

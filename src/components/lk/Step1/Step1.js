@@ -13,8 +13,12 @@ export class Step1 extends Component {
     summary: this.props.summary,
   };
 
-  handleAboutChange = (about, name) => {
-    this.props.onAboutChange(about, "about", name);
+  handleAboutChange = (value, name) => {
+    this.props.onAboutChange(value, "about", name);
+  };
+
+  handlePassportChange = (value, name) => {
+    this.props.onPassportChange(value, "passport", name);
   };
 
   render() {
@@ -26,7 +30,7 @@ export class Step1 extends Component {
         <Grid item xs={2}></Grid>
         <Grid item xs={2}>
           <About about={summary.about} onAboutChange={this.handleAboutChange} />
-          <Passport />
+          <Passport passport={summary.passport} onPassportChange={this.handlePassportChange} />
           <Address />
           <Step1DialogButton data={summary} history={history} />
         </Grid>

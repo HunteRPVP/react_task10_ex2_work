@@ -3,6 +3,7 @@ import Step1 from "./Step1/Step1";
 import "./Lk.css";
 
 export class Lk extends Component {
+
   fio = "";
   birthDate = "";
 
@@ -21,7 +22,7 @@ export class Lk extends Component {
         },
         passport: {
           seriesNumber: "",
-          date: new Date(),
+          date: "",
           code: "",
           source: "",
           birthDate: this.birthDate,
@@ -54,6 +55,7 @@ export class Lk extends Component {
         {step === "step1" && (
           <Step1
             onAboutChange={this.handleChange}
+            onPassportChange={this.handleChange}
             summary={summary}
             history={history}
           />

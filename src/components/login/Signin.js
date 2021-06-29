@@ -59,6 +59,7 @@ const Signin = (props) => {
           label="Мобильный телефон"
           type="tel"
           className="loginText"
+          variant="outlined"
           {...register("phoneNumber")}
           name="phoneNumber"
           error={!!errors?.phoneNumber}
@@ -72,6 +73,7 @@ const Signin = (props) => {
           id="standard-password-input"
           label="Пароль"
           className="loginText"
+          variant="outlined"
           type="password"
           name="password"
           autoComplete="current-password"
