@@ -24,6 +24,8 @@ const schema = yup.object().shape({
 const Signup = (props) => {
   const fioRef = useRef(null);
   const birthDateRef = useRef(null);
+  const pnRef = useRef(null);
+  const emailRef = useRef(null);
 
   const [fio, setFio] = useState("");
 
@@ -48,6 +50,8 @@ const Signup = (props) => {
       const userData = {
         fio: fioRef.current.state.query,
         birthDate: birthDateRef.current.value,
+        phoneNum: pnRef.current.value,
+        email: emailRef.current.value,
       };
       props.history.push("/lk/step1/" + JSON.stringify(userData));
     }
@@ -94,6 +98,7 @@ const Signup = (props) => {
             <p className="errorMsg">Поле должно содержать полные ФИО</p>
           )}
         </div>
+        <br />
         <TextField
           label="Дата рождения"
           defaultValue="2017-05-24"
@@ -106,11 +111,13 @@ const Signup = (props) => {
           }}
         />
         <br />
+        <br />
         <TextField
           id="phoneNumber"
           label="Мобильный телефон"
           type="tel"
           variant="outlined"
+          inputRef={pnRef}
           className="loginText"
           {...register("phoneNumber")}
           name="phoneNumber"
@@ -121,12 +128,14 @@ const Signup = (props) => {
           }}
         />
         <br />
+        <br />
         <TextField
           {...register("email")}
           label="Email"
           className="loginText"
           type="email"
           variant="outlined"
+          inputRef={emailRef}
           name="email"
           error={!!errors?.email}
           helperText={errors?.email?.message}

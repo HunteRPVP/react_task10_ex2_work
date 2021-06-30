@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Button, TextField } from "@material-ui/core";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import * as yup from "yup";
@@ -24,6 +24,8 @@ const schema = yup.object().shape({
 });
 
 const Signin = (props) => {
+  const pnRef = useRef(null);
+
   const normalizePhoneNumber = (value) => {
     if (value === "8") {
       value = "+7";
@@ -41,7 +43,10 @@ const Signin = (props) => {
   };
 
   const onSubmit = () => {
-    props.history.push("/lk/step1");
+    const userData = {
+      phoneNum: pnRef.current.value,
+    };
+    props.history.push("/lk/step1/" + JSON.stringify(userData));
   };
 
   const {
@@ -60,6 +65,7 @@ const Signin = (props) => {
           type="tel"
           className="loginText"
           variant="outlined"
+          inputRef={pnRef}
           {...register("phoneNumber")}
           name="phoneNumber"
           error={!!errors?.phoneNumber}
@@ -68,6 +74,7 @@ const Signin = (props) => {
             event.target.value = normalizePhoneNumber(event.target.value);
           }}
         />
+        <br />
         <br />
         <TextField
           id="standard-password-input"
