@@ -1,3 +1,16 @@
 .title {
-    margin-left: 15%;
+  margin-left: 15%;
+}
+
+.summary {
+  background-color: lightgray;
+}
+
+.zoom {
+  border: 1px solid black;
+}
+
+.innerPaper {
+  margin: 10px 10px;
+  margin-bottom: 10px;
 }

@@ -9,19 +9,19 @@
 }
 
 .fio {
+  margin: auto;
   width: 300px;
-  margin-left: 21%;
 }
 
 .fioLabel {
-  margin-left: 21%;
+  margin-right: 150px;
   color: gray;
   font-family: "Roboto";
   font-size: 12px;
 }
 
 .fioBox {
-  text-align: left;
+  text-align: center;
 }
 
 .errorMsg {

@@ -1,13 +1,20 @@
-import React, { Component } from 'react'
+import React from "react";
 
-export class Summary extends Component {
-    render() {
-        return (
-            <div>
-                
-            </div>
-        )
-    }
-}
+const Summary = ({ summary }) => {
+  return (
+    <div className="summary">
+      <h3>Ключевые данные</h3>
+      <p>
+        <span>ФИО:</span> {summary.about.fio}
+      </p>
+      <p>
+        <span>Серия и номер паспорта:</span> {summary.passport.seriesNumber}
+      </p>
+      <p>
+        <span>Адрес регистрации:</span> {summary.address.regAddress}
+      </p>
+    </div>
+  );
+};
 
-export default Summary
+export default Summary;
