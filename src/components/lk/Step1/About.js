@@ -3,7 +3,7 @@ import ReactDaDataBox from "react-dadata-box";
 import { Radio } from "@material-ui/core";
 
 const About = (props) => {
-  const { about } = props;
+  const { about, aboutRef } = props;
 
   return (
     <div>
@@ -16,6 +16,9 @@ const About = (props) => {
         type="fio"
         query={about.fio}
         onChange={(e) => props.onAboutChange(e.value, "fio")}
+        customInput={(params) => {
+          return <input {...params} ref={aboutRef} />;
+        }}
       />
       {about.fio.split(" ").length !== 3 && (
         <p className="errorMsg">Поле должно содержать полные ФИО</p>

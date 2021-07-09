@@ -3,7 +3,7 @@ import ReactDaDataBox from "react-dadata-box";
 import { Checkbox } from "@material-ui/core";
 
 const Address = (props) => {
-  const { address } = props;
+  const { address, addressRef } = props;
 
   return (
     <div>
@@ -17,6 +17,9 @@ const Address = (props) => {
         name="regAddress"
         query={address.regAddress}
         onChange={(e) => props.onAddressChange(e.value, "regAddress")}
+        customInput={(params) => {
+          return <input {...params} ref={addressRef} />;
+        }}
       />
       {address.regAddress.length === 0 && (
         <p className="errorMsg">Поле должно быть заполнено</p>

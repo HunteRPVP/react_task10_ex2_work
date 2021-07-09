@@ -4,6 +4,7 @@
 
 .summary {
   background-color: lightgray;
+  padding: 5px 5px 5px;
 }
 
 .zoom {
@@ -13,4 +14,17 @@
 .innerPaper {
   margin: 10px 10px;
   margin-bottom: 10px;
+}
+
+.roundBtn {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  border: 1px solid grey;
+  background-color: white;
+}
+
+.roundBtn:hover {
+  cursor: pointer;
+  background-color: lightgrey;
 }

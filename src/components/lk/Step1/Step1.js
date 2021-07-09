@@ -118,14 +118,20 @@ export class Step1 extends Component {
       <Grid container>
         <Grid item xs={2}></Grid>
         <Grid item xs={2}>
-          <About about={summary.about} onAboutChange={this.handleAboutChange} />
+          <About
+            about={summary.about}
+            onAboutChange={this.handleAboutChange}
+            aboutRef={this.props.aboutRef}
+          />
           <Passport
             passport={summary.passport}
             onPassportChange={this.handlePassportChange}
+            passportRef={this.props.passportRef}
           />
           <Address
             address={summary.address}
             onAddressChange={this.handleAddressChange}
+            addressRef={this.props.addressRef}
           />
           {this.validateAll() && (
             <Step1DialogButton summary={summary} history={history} />

@@ -3,7 +3,7 @@ import ReactDaDataBox from "react-dadata-box";
 import { TextField } from "@material-ui/core";
 
 const Passport = (props) => {
-  const { passport } = props;
+  const { passport, passportRef } = props;
 
   const handleCodeChange = (e) => {
     props.onPassportChange(e.target.value, "code");
@@ -78,6 +78,7 @@ const Passport = (props) => {
         name="seriesNumber"
         value={passport.seriesNumber}
         onChange={(e) => props.onPassportChange(e.target.value, "seriesNumber")}
+        inputRef={passportRef}
       />
       {(passport.seriesNumber.length !== 10 ||
         !/^\d+$/.test(passport.seriesNumber)) && (
@@ -114,6 +115,7 @@ const Passport = (props) => {
       {!/\d{3}-\d{3}/.test(passport.code) && (
         <p className="errorMsg">Поле должно быть следующего формата NNN-NNN</p>
       )}
+      <br />
       <label className="fioLabel" style={{ marginLeft: "0" }}>
         Кем выдан
       </label>
@@ -143,6 +145,7 @@ const Passport = (props) => {
       {passport.birthDate.length === 0 && (
         <p className="errorMsg">Поле должно быть заполнено</p>
       )}
+      <br />
       <label className="fioLabel" style={{ marginLeft: "0" }}>
         Место рождения
       </label>
