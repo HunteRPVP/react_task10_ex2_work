@@ -6,7 +6,7 @@ const BorderLinearProgress = withStyles((theme) => ({
     root: {
       height: 10,
       borderRadius: 5,
-      width: 500,
+      width: "10%",
       display: "inline-block"
     },
     colorPrimary: {
@@ -27,7 +27,7 @@ const ProgressLk = ({
   addressRef,
 }) => {
   return (
-    <div>
+    <div className="progressBar">
       <button className="roundBtn" onClick={() => aboutRef.current.focus()}>
         1
       </button>

@@ -1,11 +1,17 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Button, TextField } from "@material-ui/core";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import ReactDaDataBox from "react-dadata-box";
-import { useState } from "react";
+import {
+  changeBirthdate,
+  changeEmail,
+  changeFIO,
+  changePhoneNumber,
+} from "../../redux/actionCreators";
+import { useSelector, useDispatch } from "react-redux";
 
 const schema = yup.object().shape({
   phoneNumber: yup
@@ -21,13 +27,13 @@ const schema = yup.object().shape({
     .email("Необходимо ввести корректный адрес электронной почты"),
 });
 
-const Signup = (props) => {
-  const fioRef = useRef(null);
-  const birthDateRef = useRef(null);
-  const pnRef = useRef(null);
-  const emailRef = useRef(null);
+const selectFIO = (state) => state.about.fio;
+const selectState = (state) => state;
 
-  const [fio, setFio] = useState("");
+const Signup = (props) => {
+  const dispatch = useDispatch();
+  const fio = useSelector(selectFIO);
+  const state = useSelector(selectState);
 
   const normalizePhoneNumber = (value) => {
     if (value === "8") {
@@ -47,13 +53,8 @@ const Signup = (props) => {
 
   const onSubmit = () => {
     if (fio.split(" ").length === 3) {
-      const userData = {
-        fio: fioRef.current.state.query,
-        birthDate: birthDateRef.current.value,
-        phoneNum: pnRef.current.value,
-        email: emailRef.current.value,
-      };
-      props.history.push("/lk/step1/" + JSON.stringify(userData));
+      localStorage.setItem("summary", JSON.stringify(state));
+      props.history.push("/lk/step1/");
     }
   };
 
@@ -73,8 +74,7 @@ const Signup = (props) => {
             token="9959c2a9603b4e457d5f5f5919e81dcec9da3307"
             type="fio"
             className="fio"
-            ref={fioRef}
-            onChange={(e) => setFio(e.value)}
+            onChange={(e) => dispatch(changeFIO(e.value))}
           />
           {/* <input
             className="invisible"
@@ -101,11 +101,10 @@ const Signup = (props) => {
         <br />
         <TextField
           label="Дата рождения"
-          defaultValue="2017-05-24"
           className="loginText"
           variant="outlined"
-          inputRef={birthDateRef}
           type="date"
+          onChange={(e) => dispatch(changeBirthdate(e.target.value))}
           InputLabelProps={{
             shrink: true,
           }}
@@ -117,7 +116,6 @@ const Signup = (props) => {
           label="Мобильный телефон"
           type="tel"
           variant="outlined"
-          inputRef={pnRef}
           className="loginText"
           {...register("phoneNumber")}
           name="phoneNumber"
@@ -125,6 +123,7 @@ const Signup = (props) => {
           helperText={errors?.phoneNumber?.message}
           onChange={(event) => {
             event.target.value = normalizePhoneNumber(event.target.value);
+            dispatch(changePhoneNumber(event.target.value));
           }}
         />
         <br />
@@ -135,10 +134,10 @@ const Signup = (props) => {
           className="loginText"
           type="email"
           variant="outlined"
-          inputRef={emailRef}
           name="email"
           error={!!errors?.email}
           helperText={errors?.email?.message}
+          onChange={(e) => dispatch(changeEmail(e.target.value))}
         />
         <br />
         <br />

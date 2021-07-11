@@ -1,12 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDaDataBox from "react-dadata-box";
 import { TextField } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  changeBirthdate,
+  changeBirthplace,
+  changeCode,
+  changeDate,
+  changeProgress2,
+  changeSeriesNumber,
+  changeSource,
+} from "../../../redux/actionCreators";
+
+const selectPassport = (state) => state.passport;
 
 const Passport = (props) => {
-  const { passport, passportRef } = props;
+  const { passportRef } = props;
+
+  const passport = useSelector(selectPassport);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(
+      changeProgress2(
+        (passport.seriesNumber.length !== 10 ||
+        !/^\d+$/.test(passport.seriesNumber)
+          ? 0
+          : 16) +
+          (passport.date === "" ? 0 : 16) +
+          (!/\d{3}-\d{3}/.test(passport.code) ? 0 : 16) +
+          (passport.source === "" ? 0 : 16) +
+          (passport.birthDate === "" ? 0 : 16) +
+          (passport.birthPlace === "" ? 0 : 20)
+      )
+    );
+  }, [passport, dispatch]);
 
   const handleCodeChange = (e) => {
-    props.onPassportChange(e.target.value, "code");
+    dispatch(changeCode(e.target.value));
     var url =
       "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/fms_unit";
     var token = "9959c2a9603b4e457d5f5f5919e81dcec9da3307";
@@ -26,18 +57,20 @@ const Passport = (props) => {
     fetch(url, options)
       .then((response) => response.text())
       .then((result) =>
-        props.onPassportChange(
-          JSON.parse(result).suggestions[
-            JSON.parse(result).suggestions.length - 1
-          ].data.name,
-          "source"
+        dispatch(
+          changeSource(
+            JSON.parse(result).suggestions[
+              JSON.parse(result).suggestions.length - 1
+            ].data.name,
+            "source"
+          )
         )
       )
       .catch((error) => console.log("error", error));
   };
 
   const handleSourceChange = (e) => {
-    props.onPassportChange(e.value, "source");
+    dispatch(changeSource(e.value));
     var url =
       "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/fms_unit";
     var token = "9959c2a9603b4e457d5f5f5919e81dcec9da3307";
@@ -57,11 +90,13 @@ const Passport = (props) => {
     fetch(url, options)
       .then((response) => response.text())
       .then((result) =>
-        props.onPassportChange(
-          JSON.parse(result).suggestions[
-            JSON.parse(result).suggestions.length - 1
-          ].data.code,
-          "code"
+        dispatch(
+          changeCode(
+            JSON.parse(result).suggestions[
+              JSON.parse(result).suggestions.length - 1
+            ].data.code,
+            "code"
+          )
         )
       )
       .catch((error) => console.log("error", error));
@@ -72,12 +107,12 @@ const Passport = (props) => {
       <h3>Паспортные данные</h3>
       <TextField
         label="Серия номер"
-        className="loginText"
+        className="lkText"
         type="text"
         variant="outlined"
         name="seriesNumber"
         value={passport.seriesNumber}
-        onChange={(e) => props.onPassportChange(e.target.value, "seriesNumber")}
+        onChange={(e) => dispatch(changeSeriesNumber(e.target.value))}
         inputRef={passportRef}
       />
       {(passport.seriesNumber.length !== 10 ||
@@ -88,12 +123,12 @@ const Passport = (props) => {
       <br />
       <TextField
         label="Дата выдачи"
-        className="loginText"
+        className="lkText"
         variant="outlined"
         type="date"
         name="date"
         value={passport.date}
-        onChange={(e) => props.onPassportChange(e.target.value, "date")}
+        onChange={(e) => dispatch(changeDate(e.target.value))}
         InputLabelProps={{
           shrink: true,
         }}
@@ -105,7 +140,7 @@ const Passport = (props) => {
       <br />
       <TextField
         label="Код подразделения"
-        className="loginText"
+        className="lkText"
         variant="outlined"
         type="text"
         name="code"
@@ -132,12 +167,12 @@ const Passport = (props) => {
       <br />
       <TextField
         label="Дата рождения"
-        className="loginText"
+        className="lkText"
         variant="outlined"
         type="date"
         name="birthDate"
         value={passport.birthDate}
-        onChange={(e) => props.onPassportChange(e.target.value, "birthDate")}
+        onChange={(e) => dispatch(changeBirthdate(e.target.value))}
         InputLabelProps={{
           shrink: true,
         }}
@@ -154,7 +189,7 @@ const Passport = (props) => {
         type="address"
         name="birthPlace"
         query={passport.birthPlace}
-        onChange={(e) => props.onPassportChange(e.value, "birthPlace")}
+        onChange={(e) => dispatch(changeBirthplace(e.value))}
       />
       {passport.birthPlace.length === 0 && (
         <p className="errorMsg">Поле должно быть заполнено</p>

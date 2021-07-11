@@ -13,7 +13,6 @@ export class Routing extends Component {
           <Route exact path="/error" component={Error} />
           <Route exact path="/login/:form" component={Login} />
           <Route exact path="/lk/:step" component={Lk} />
-          <Route exact path="/lk/:step/:userData" component={Lk} />
           <Redirect exact from="/" to="/login/signin" />
         </Switch>
       </Router>

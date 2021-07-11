@@ -1,9 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDaDataBox from "react-dadata-box";
 import { Checkbox } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  changeFactAdress,
+  changeMatch,
+  changeProgress3,
+  changeRegAdress,
+} from "../../../redux/actionCreators";
+
+const selectAddress = (state) => state.address;
 
 const Address = (props) => {
-  const { address, addressRef } = props;
+  const { addressRef } = props;
+
+  const address = useSelector(selectAddress);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (address.match === true) {
+      if (address.regAddress === "") {
+        dispatch(changeProgress3(0));
+      } else {
+        dispatch(changeProgress3(100));
+      }
+    } else {
+      dispatch(
+        changeProgress3(
+          (address.regAddress === "" ? 0 : 50) +
+            (address.factAddress === "" ? 0 : 50)
+        )
+      );
+    }
+  }, [address, dispatch]);
 
   return (
     <div>
@@ -16,7 +45,7 @@ const Address = (props) => {
         type="address"
         name="regAddress"
         query={address.regAddress}
-        onChange={(e) => props.onAddressChange(e.value, "regAddress")}
+        onChange={(e) => dispatch(changeRegAdress(e.value))}
         customInput={(params) => {
           return <input {...params} ref={addressRef} />;
         }}
@@ -26,7 +55,7 @@ const Address = (props) => {
       )}
       <Checkbox
         checked={address.match}
-        onChange={(e) => props.onAddressChange(e.target.checked, "match")}
+        onChange={(e) => dispatch(changeMatch(!address.match))}
         inputProps={{ "aria-label": "primary checkbox" }}
       />
       <label>Совпадает с фактическим</label>
@@ -41,7 +70,7 @@ const Address = (props) => {
             type="address"
             name="factAddress"
             query={address.factAddress}
-            onChange={(e) => props.onAddressChange(e.value, "factAddress")}
+            onChange={(e) => dispatch(changeFactAdress(e.value))}
           />
           {address.factAddress.length === 0 && (
             <p className="errorMsg">Поле должно быть заполнено</p>

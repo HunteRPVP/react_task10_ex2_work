@@ -3,8 +3,15 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import Guard from "./components/Guard";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
-ReactDOM.render(<Guard />, document.getElementById("root"));
+ReactDOM.render(
+  <Provider store={store}>
+    <Guard />
+  </Provider>,
+  document.getElementById("root")
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

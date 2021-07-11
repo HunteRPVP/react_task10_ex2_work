@@ -4,6 +4,8 @@ import { parsePhoneNumberFromString } from "libphonenumber-js";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import { changePassword, changePhoneNumber } from "../../redux/actionCreators";
+import { useDispatch, useSelector } from "react-redux";
 
 const schema = yup.object().shape({
   phoneNumber: yup
@@ -23,8 +25,13 @@ const schema = yup.object().shape({
     ),
 });
 
+const selectState = (state) => state;
+
 const Signin = (props) => {
   const pnRef = useRef(null);
+
+  const state = useSelector(selectState);
+  const dispatch = useDispatch();
 
   const normalizePhoneNumber = (value) => {
     if (value === "8") {
@@ -43,10 +50,8 @@ const Signin = (props) => {
   };
 
   const onSubmit = () => {
-    const userData = {
-      phoneNum: pnRef.current.value,
-    };
-    props.history.push("/lk/step1/" + JSON.stringify(userData));
+    localStorage.setItem("summary", JSON.stringify(state));
+    props.history.push("/lk/step1/");
   };
 
   const {
@@ -72,6 +77,7 @@ const Signin = (props) => {
           helperText={errors?.phoneNumber?.message}
           onChange={(event) => {
             event.target.value = normalizePhoneNumber(event.target.value);
+            dispatch(changePhoneNumber(event.target.value));
           }}
         />
         <br />
@@ -87,6 +93,7 @@ const Signin = (props) => {
           {...register("password")}
           error={!!errors?.password}
           helperText={errors?.password?.message}
+          onChange={(e) => dispatch(changePassword(e.target.value))}
         />
         <br />
         <br />

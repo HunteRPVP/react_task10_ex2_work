@@ -5,9 +5,15 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { useSelector } from "react-redux";
 
-export default function Step1DialogButton({ summary, history }) {
+const selectSummary = (state) => state;
+
+export default function Step1DialogButton({ history }) {
   const [open, setOpen] = React.useState(false);
+
+  const summary = useSelector(selectSummary);
+
   console.log(summary.about.fio.split(" ")[1]);
   const handleClickOpen = () => {
     setOpen(true);
@@ -22,8 +28,8 @@ export default function Step1DialogButton({ summary, history }) {
       },
     })
       .then((response) => response.json())
-      .then((json) => console.log(json));
-    history.push("/lk/step2");
+      .then((json) => console.log(json))
+      .then(() => history.push("/lk/step2"));
   };
 
   const handleClose = () => {
