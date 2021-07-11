@@ -10,6 +10,7 @@ class App extends React.Component {
     return (
       <Grid container>
         <Grid item xs={1} className="backGridItem">
+          <br />
           <Button
             onClick={() => {
               history.goBack();
