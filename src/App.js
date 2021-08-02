@@ -7,6 +7,7 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 import AddIssueDialog from "./components/github/AddIssueDialog";
 import HomeIcon from "@material-ui/icons/Home";
 import FolderSharedIcon from '@material-ui/icons/FolderShared';
+import ArchiveIcon from '@material-ui/icons/Archive';
 
 class App extends React.Component {
   render() {
@@ -45,6 +46,17 @@ class App extends React.Component {
               }}
             >
               <FolderSharedIcon style={{ height: "50px", width: "50px" }} />
+            </Button>
+          </Tooltip>
+          <br />
+          <br />
+          <Tooltip title="Перейти на страницу с материалами уроков">
+            <Button
+              onClick={() => {
+                history.push("/materials/");
+              }}
+            >
+              <ArchiveIcon style={{ height: "50px", width: "50px" }} />
             </Button>
           </Tooltip>
           <br />
