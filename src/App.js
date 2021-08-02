@@ -6,6 +6,7 @@ import Routing from "./components/Routing";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import AddIssueDialog from "./components/github/AddIssueDialog";
 import HomeIcon from "@material-ui/icons/Home";
+import FolderSharedIcon from '@material-ui/icons/FolderShared';
 
 class App extends React.Component {
   render() {
@@ -33,6 +34,17 @@ class App extends React.Component {
               }}
             >
               <GitHubIcon style={{ height: "50px", width: "50px" }} />
+            </Button>
+          </Tooltip>
+          <br />
+          <br />
+          <Tooltip title="Перейти на страницу с моими проектами">
+            <Button
+              onClick={() => {
+                history.push("/projects/");
+              }}
+            >
+              <FolderSharedIcon style={{ height: "50px", width: "50px" }} />
             </Button>
           </Tooltip>
           <br />

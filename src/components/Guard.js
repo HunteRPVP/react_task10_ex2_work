@@ -11,7 +11,7 @@ export class Guard extends Component {
 
   componentDidCatch(error, info) {
     console.log(error.message, info);
-    this.history.push("/error");
+    // this.history.push("/error");
   }
 }
 

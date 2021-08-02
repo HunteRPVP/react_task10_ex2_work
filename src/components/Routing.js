@@ -6,6 +6,7 @@ import Lk from "./lk/Lk";
 import IssueTable from "./github/IssueTable";
 import Comments from "./github/Comments";
 import NotFound from "./NotFound";
+import ProjectsList from "./github/ProjectsList";
 
 export class Routing extends Component {
   render() {
@@ -18,6 +19,7 @@ export class Routing extends Component {
           <Route exact path="/lk/:step" component={Lk} />
           <Route exact path="/issues" component={IssueTable} />
           <Route exact path="/comments/:id" component={Comments} />
+          <Route exact path="/projects" component={ProjectsList} />
           <Route path="/404" component={NotFound} />
           <Redirect exact from="/" to="/login/signin" />
           <Redirect from="*" to="/404" />
