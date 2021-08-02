@@ -161,7 +161,7 @@ export class Materials extends Component {
               <TableHead>
                 <TableRow>
                   <TableCell>Тема</TableCell>
-                  <TableCell>Ссылка на домашнюю работу</TableCell>
+                  <TableCell>Ссылки на материалы</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
