@@ -8,6 +8,7 @@ import Comments from "./github/Comments";
 import NotFound from "./NotFound";
 import ProjectsList from "./github/ProjectsList";
 import { Materials } from "./Materials";
+import Review from "./Review";
 
 export class Routing extends Component {
   render() {
@@ -22,6 +23,7 @@ export class Routing extends Component {
           <Route exact path="/comments/:id" component={Comments} />
           <Route exact path="/projects" component={ProjectsList} />
           <Route exact path="/materials" component={Materials} />
+          <Route exact path="/review" component={Review} />
           <Route path="/404" component={NotFound} />
           <Redirect exact from="/" to="/login/signin" />
           <Redirect from="*" to="/404" />
